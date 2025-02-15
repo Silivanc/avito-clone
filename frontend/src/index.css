@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: Auroport;
+  src: url('./assets/fonts/Aeroport.otf');
+}
+
+body {
+  font-family: Aeroport, Arial, sans-serif;
+}
+
+

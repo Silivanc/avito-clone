@@ -1,0 +1,58 @@
+:root {
+    --background-input: rgb(241, 241, 241);
+    --background-input-hover: rgb(228, 227, 227);
+    --color-error: rgb(236, 47, 47);
+    --ouline-input: rgb(58, 215, 243);
+    --color-span: rgb(201, 199, 199);
+    --border-error-input: rgba(221, 64, 64, 0.81);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 13px;
+    background: var(--background-input);
+    border: 1px solid transparent;
+    border-radius: 13px;
+    box-sizing: border-box;
+
+    &:hover {
+        background: var(--background-input-hover);
+    }
+
+    &:focus {
+        outline: 3px solid var(--ouline-input);
+    }
+}
+
+input {
+    height: 50px;
+}
+
+span {
+    color: var(--color-span);
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 300
+}
+
+.error {
+    color: var(--color-error);
+}
+
+.errorInput {
+    border: 1px solid var(--color-error);
+    
+    &:focus {
+        outline: 3px solid var(--border-error-input);
+    }
+}
+
+textarea {
+    height: 150px;
+}
+
+label {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
