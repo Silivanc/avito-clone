@@ -22,7 +22,10 @@ export function FormSelect({
 
       {component === "select" ? (
         <select
-          className={clsx(styles.select, errors[identificator] && styles.errorInput)}
+          className={clsx(
+            styles.select,
+            errors[identificator] && styles.errorInput,
+          )}
           {...register(identificator, {
             required: required,
             ...optionalRules,
@@ -39,7 +42,10 @@ export function FormSelect({
         <>
           <input
             list={`${identificator}-datalist`}
-            className={clsx(errors[identificator] && styles.errorInput, styles.input)}
+            className={clsx(
+              errors[identificator] && styles.errorInput,
+              styles.input,
+            )}
             {...register(identificator, {
               required: required,
               ...optionalRules,
@@ -64,4 +70,3 @@ export function FormSelect({
     </>
   );
 }
-

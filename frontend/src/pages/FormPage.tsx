@@ -17,7 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const FormPage: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const id = location.state; 
+  const id = location.state;
 
   const {
     register,
@@ -33,7 +33,9 @@ export const FormPage: FC = () => {
 
   return (
     <div className={clsx("container x-auto px-36 py-5", styles.formPage)}>
-      <h1 className="text-4xl font-bold mb-7">{isEdit ? "Редактирование" : "Создание"} объявления</h1>
+      <h1 className="text-4xl font-bold mb-7">
+        {isEdit ? "Редактирование" : "Создание"} объявления
+      </h1>
       <form onSubmit={onSubmit} className="max-w-2xl flex flex-col">
         <FormFieldsMapper
           fields={generalFields}
@@ -83,7 +85,14 @@ export const FormPage: FC = () => {
           />
           <Button
             text={isEdit ? "Отмена" : "Сбросить"}
-            fn={isEdit ? () => {resetForm(); navigate(-1)} : resetForm}
+            fn={
+              isEdit
+                ? () => {
+                    resetForm();
+                    navigate(-1);
+                  }
+                : resetForm
+            }
             styles="w-52 h-14 bg-[#f1f1f1]"
           />
         </div>

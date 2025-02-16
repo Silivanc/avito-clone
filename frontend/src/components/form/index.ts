@@ -9,4 +9,4 @@ export {
   transportFields,
   UslugiFields,
 } from "./formFields";
-export { useFormInit } from "./useFormInit"
+export { useFormInit } from "./useFormInit";

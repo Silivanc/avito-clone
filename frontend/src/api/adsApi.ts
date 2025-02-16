@@ -3,7 +3,7 @@ import { Ad, Ads } from "../types/ad.types";
 
 export const adsApi = createApi({
   reducerPath: "adsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   tagTypes: ["Ads"],
   endpoints: (builder) => ({
     getAds: builder.query<Ads, void>({
@@ -13,7 +13,7 @@ export const adsApi = createApi({
       providesTags: ["Ads"],
     }),
     getAd: builder.query<Ad, Pick<Ad, "id">>({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `items/${id}`,
       }),
       providesTags: (result, error, { id }) => [{ type: "Ads", id }],
@@ -26,8 +26,8 @@ export const adsApi = createApi({
       }),
       invalidatesTags: ["Ads"],
     }),
-    updateAd: builder.mutation<Ad, {id: number, body: Omit<Ad, "id">}>({
-      query: ({id, body}) => ({
+    updateAd: builder.mutation<Ad, { id: number; body: Omit<Ad, "id"> }>({
+      query: ({ id, body }) => ({
         url: `items/${id}`,
         method: "PUT",
         body: body,

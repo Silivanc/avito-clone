@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from "react";
-import defaultImage from "../assets/defaulImage.png"; 
+import defaultImage from "../assets/defaulImage.png";
 
 type ImageComponentProps = {
   src?: string;

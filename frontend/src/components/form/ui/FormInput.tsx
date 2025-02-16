@@ -20,7 +20,10 @@ export function FormInput({
         {labelName}
       </label>
       <input
-        className={clsx(styles.input, errors[identificator] && styles.errorInput)}
+        className={clsx(
+          styles.input,
+          errors[identificator] && styles.errorInput,
+        )}
         {...register(identificator, { required, ...optionalRules })}
         id={identificator}
         onChange={(e) => {
@@ -62,7 +65,7 @@ export function FormInput({
               if (/^0,[0]*$/.test(value)) {
                 value = "0";
               } else if (/^0+,/.test(value)) {
-                value = value.replace(/^0+/, "0"); 
+                value = value.replace(/^0+/, "0");
               }
             }
 

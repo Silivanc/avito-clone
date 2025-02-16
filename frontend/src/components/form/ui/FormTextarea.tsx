@@ -17,7 +17,10 @@ export function FormTextarea({
         {labelName}
       </label>
       <textarea
-        className={clsx(styles.textarea, errors[identificator] && styles.errorInput)}
+        className={clsx(
+          styles.textarea,
+          errors[identificator] && styles.errorInput,
+        )}
         {...register(identificator, { required })}
         id={identificator}
       />

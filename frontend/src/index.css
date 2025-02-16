@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: Auroport;
-  src: url('./assets/fonts/Aeroport.otf');
+  src: url("./assets/fonts/Aeroport.otf");
 }
 
 body {
@@ -12,5 +12,3 @@ body {
 a {
   background-color: inherit;
 }
-
-

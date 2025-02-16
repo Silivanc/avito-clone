@@ -1,6 +1,6 @@
 export const PATHS = {
-    home: "/",
-    form: "/form",
-    list: "/list",
-    item: "/item/:id"
-}
+  home: "/",
+  form: "/form",
+  list: "/list",
+  item: "/item/:id",
+};

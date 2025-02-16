@@ -1,2 +1,2 @@
 export { AdComponent } from "./AdComponent";
-export { usePaginator } from "./usePaginator"; 
+export { usePaginator } from "./usePaginator";

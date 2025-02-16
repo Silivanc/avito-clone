@@ -1,5 +1,10 @@
 import { FC } from "react";
-import { UseFormRegister, FieldErrors, UseFormSetValue, FieldValues } from "react-hook-form";
+import {
+  UseFormRegister,
+  FieldErrors,
+  UseFormSetValue,
+  FieldValues,
+} from "react-hook-form";
 import { FormInput, FormTextarea, FormSelect } from "./index";
 import { formFieldType } from "./form.type";
 
@@ -33,7 +38,8 @@ export const FormFieldsMapper: FC<FormFieldsMapperProps> = ({
           );
         }
         if (
-          (field.component === "select" || field.component === "select-input") &&
+          (field.component === "select" ||
+            field.component === "select-input") &&
           field.selectValues
         ) {
           return (

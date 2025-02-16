@@ -9,16 +9,18 @@ export const usePaginator = (pageSize: number = 5) => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const filteredData = data
-    ? data.filter(
-        (ad) =>
-          ad.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          (selectedType ? ad.type === selectedType : true)
-      ).reverse()
+    ? data
+        .filter(
+          (ad) =>
+            ad.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (selectedType ? ad.type === selectedType : true),
+        )
+        .reverse()
     : [];
 
   const currentData = filteredData.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    currentPage * pageSize,
   );
 
   const handlePageChange = (page: number) => {
@@ -33,7 +35,7 @@ export const usePaginator = (pageSize: number = 5) => {
         setSearchTerm("");
       }
     }, 500),
-    []
+    [],
   );
 
   const handleTypeChange = (value: string | null) => {

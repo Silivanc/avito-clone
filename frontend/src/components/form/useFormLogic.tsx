@@ -18,7 +18,7 @@ import {
 } from "../../types/ad.types";
 import { useCreateAdMutation, useUpdateAdMutation } from "../../api/adsApi";
 import { notification } from "antd";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 type FormType = Partial<
   Omit<INedvizhimost, "type"> &
     Omit<ITransport, "type"> &
@@ -38,13 +38,17 @@ export const useFormLogic = (id?: number) => {
   const [createAd] = useCreateAdMutation();
   const [updateAd] = useUpdateAdMutation();
   const { general, nedvizhimost, transport, uslugi } = useSelector(
-    (state: RootState) => state.form
+    (state: RootState) => state.form,
   );
 
   const [api, contextHolder] = notification.useNotification();
 
   //Параметры для уведомления
-  const openNotification = (success: "success" | "error", message: string, description = "") => {
+  const openNotification = (
+    success: "success" | "error",
+    message: string,
+    description = "",
+  ) => {
     api[success]({
       message,
       description,
@@ -61,7 +65,10 @@ export const useFormLogic = (id?: number) => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      ...general, ...transport, ...nedvizhimost, ...uslugi
+      ...general,
+      ...transport,
+      ...nedvizhimost,
+      ...uslugi,
     },
   });
 
@@ -95,7 +102,7 @@ export const useFormLogic = (id?: number) => {
         throttlingRef.current = null;
       }, 500);
     }
-  }, [values, general, nedvizhimost, transport, uslugi, dispatch]); 
+  }, [values, general, nedvizhimost, transport, uslugi, dispatch]);
 
   const resetForm = () => {
     dispatch(resetFormAction());
@@ -104,20 +111,20 @@ export const useFormLogic = (id?: number) => {
       ...initialState.nedvizhimost,
       ...initialState.transport,
       ...initialState.uslugi,
-      type: ""
+      type: "",
     });
-  }
+  };
 
   //отправка данных на сервер
   const onSubmit = handleSubmit(async () => {
     let body = null;
     if (type === AdTypes.Nedvizhimost) {
-      body = {...general, ...nedvizhimost};
+      body = { ...general, ...nedvizhimost };
     } else if (type === AdTypes.Transport) {
-      body = {...general, ...transport}
+      body = { ...general, ...transport };
     } else if (type === AdTypes.Uslugi) {
-      body = {...general, ...uslugi}
-    } 
+      body = { ...general, ...uslugi };
+    }
 
     // if (body) {
     //   try {
@@ -137,7 +144,7 @@ export const useFormLogic = (id?: number) => {
           await updateAd({ id, body }).unwrap();
           openNotification("success", "Объявление успешно обновлено");
           resetForm();
-          navigate('/form');
+          navigate("/form");
         } else {
           await createAd(body).unwrap();
           openNotification("success", "Объявление успешно создано");
@@ -146,7 +153,11 @@ export const useFormLogic = (id?: number) => {
       }
     } catch (error) {
       console.error("Ошибка при создании/обновлении объявления:", error);
-      openNotification("error",  "Произошла ошибка при создании/обновлении объявления", "Статус ошибки " + error?.status);
+      openNotification(
+        "error",
+        "Произошла ошибка при создании/обновлении объявления",
+        "Статус ошибки " + error?.status,
+      );
     }
   });
 

@@ -6,7 +6,7 @@ const positiveNumberRules: RegisterOptions = {
     value: 1,
     message: `Введите положительное число`,
   },
-}
+};
 
 const currentYear = new Date().getFullYear();
 const yearRules: RegisterOptions = {
@@ -90,7 +90,7 @@ export const nedvizhimostFields: formFieldType[] = [
     onNumber: "double",
     spanText: "кв. м",
     spanError: "Укажите площадь, кв. м",
-    optionalRules: positiveNumberRules
+    optionalRules: positiveNumberRules,
   },
   {
     labelName: "Количество комнат",
@@ -124,9 +124,9 @@ export const transportFields: formFieldType[] = [
       ["Hyundai"]: "Hyundai",
       ["Nissan"]: "Nissan",
       ["Volkswagen"]: "Volkswagen",
-      ["Lexus"]: "Lexus"
+      ["Lexus"]: "Lexus",
     },
-  },  
+  },
   {
     labelName: "Модель",
     identificator: "model",
@@ -156,11 +156,11 @@ export const UslugiFields: formFieldType[] = [
     spanError: "Пожалуйста, выберите тип из списка",
     component: "select-input",
     selectValues: {
-      ['Уборка']: "Уборка",
+      ["Уборка"]: "Уборка",
       ["Доставка"]: "Доставка",
       ["Ремонт"]: "Ремонт",
       ["Помощь с учёбой"]: "Помощь с учёбой",
-      ["Присмотр за детьми"]: "Присмотр за детьми"
+      ["Присмотр за детьми"]: "Присмотр за детьми",
     },
   },
   {
@@ -184,4 +184,4 @@ export const UslugiFields: formFieldType[] = [
     identificator: "workSchedule",
     spanText: "Например, ПН-ПТ, 08:00-19:00",
   },
-]
+];

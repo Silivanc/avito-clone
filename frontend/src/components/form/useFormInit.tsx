@@ -4,13 +4,12 @@ import { useGetAdQuery } from "../../api/adsApi";
 import { FieldValues, UseFormSetValue } from "react-hook-form";
 
 export const useFormInit = (
-  id: number | null,  
-  setValue: UseFormSetValue<FieldValues>
+  id: number | null,
+  setValue: UseFormSetValue<FieldValues>,
 ) => {
-
   const { data: ad } = useGetAdQuery(
     { id: id ? Number(id) : -1 },
-    { skip: !id }
+    { skip: !id },
   );
 
   useEffect(() => {
@@ -22,6 +21,6 @@ export const useFormInit = (
   }, [ad, setValue]);
 
   return {
-    isEdit: !!id, 
+    isEdit: !!id,
   };
 };

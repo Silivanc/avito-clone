@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Ad } from "../../types/ad.types";
 import { useNavigate } from "react-router-dom";
 import { Image } from "antd";
-import defaultImage from "../../assets/defaulImage.png"; 
+import defaultImage from "../../assets/defaulImage.png";
 import { Button } from "../../ui/Button";
 
 type AdComponentType = {
@@ -15,9 +15,7 @@ export const AdComponent: FC<AdComponentType> = ({ ad }) => {
 
   return (
     <>
-      <div
-        className="flex gap-4 p-2 m-2 rounded-lg w-full mx-auto hover:bg-gray-200"
-      >
+      <div className="flex gap-4 p-2 m-2 rounded-lg w-full mx-auto hover:bg-gray-200">
         <div className="w-56 h-52 flex-shrink-0">
           <Image
             width={224}
@@ -35,15 +33,17 @@ export const AdComponent: FC<AdComponentType> = ({ ad }) => {
               />
             }
             style={{
-                objectFit: 'cover',
-                objectPosition: 'center',
-                borderRadius: '10px'
-            }}  
+              objectFit: "cover",
+              objectPosition: "center",
+              borderRadius: "10px",
+            }}
           />
         </div>
 
         <div className="relative w-full">
-          <h2 className="text-blue-600 font-semibold text-2xl hover:text-red-600 line-clamp-1">{name}</h2>
+          <h2 className="text-blue-600 font-semibold text-2xl hover:text-red-600 line-clamp-1">
+            {name}
+          </h2>
 
           <p className="font-bold text-gray-900 text-lg">{type}</p>
 
@@ -53,7 +53,11 @@ export const AdComponent: FC<AdComponentType> = ({ ad }) => {
             📍 {location}
           </div>
 
-          <Button text="Открыть" fn={() => navigate("/item/" + id)} styles="bg-cyan-500 text-white h-8 w-full absolute bottom-0 hover:bg-cyan-600 "/>
+          <Button
+            text="Открыть"
+            fn={() => navigate("/item/" + id)}
+            styles="bg-cyan-500 text-white h-8 w-full absolute bottom-0 hover:bg-cyan-600 "
+          />
         </div>
       </div>
     </>

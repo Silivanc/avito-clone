@@ -12,7 +12,11 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path={PATHS.home} element={<HomePage />} />
-        <Route path={PATHS.form} element={<FormPage />} key={window.location.pathname}/>
+        <Route
+          path={PATHS.form}
+          element={<FormPage />}
+          key={window.location.pathname}
+        />
         <Route path={PATHS.list} element={<ListPage />} />
         <Route path={PATHS.item} element={<ItemPage />} />
       </Routes>
