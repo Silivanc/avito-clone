@@ -39,7 +39,7 @@ export function FormSelect({
         <>
           <input
             list={`${identificator}-datalist`}
-            className={errors[identificator] && styles.errorInput}
+            className={clsx(errors[identificator] && styles.errorInput, styles.input)}
             {...register(identificator, {
               required: required,
               ...optionalRules,

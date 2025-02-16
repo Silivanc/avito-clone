@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button";
 import { PATHS } from "../../constants/constants";
+import { useFormLogic } from "../form";
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { resetForm } = useFormLogic();
 
   return (
     <main className="w-full h-screen p-5 flex flex-col items-center justify-center">
@@ -26,7 +28,10 @@ export const Home = () => {
           ></Button>
           <Button
             text="Разместить объявление"
-            fn={() => navigate(PATHS.form)}
+            fn={() => {
+              resetForm();
+              navigate(PATHS.form, )
+            }}
             styles="bg-cyan-500 hover:bg-cyan-600 h-14 w-54 text-white"
           ></Button>
         </div>

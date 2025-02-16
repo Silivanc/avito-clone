@@ -16,8 +16,9 @@ import {
   ITransport,
   IUslugi,
 } from "../../types/ad.types";
-import { useCreateAdMutation } from "../../api/adsApi";
+import { useCreateAdMutation, useUpdateAdMutation } from "../../api/adsApi";
 import { notification } from "antd";
+import { useNavigate} from "react-router-dom";
 type FormType = Partial<
   Omit<INedvizhimost, "type"> &
     Omit<ITransport, "type"> &
@@ -31,15 +32,18 @@ const numberRules: RegisterOptions = {
   },
 };
 
-export const useFormLogic = () => {
+export const useFormLogic = (id?: number) => {
   const dispatch = useDispatch();
-  const [createAd, {isLoading, isError, isSuccess}] = useCreateAdMutation();
+  const navigate = useNavigate();
+  const [createAd] = useCreateAdMutation();
+  const [updateAd] = useUpdateAdMutation();
   const { general, nedvizhimost, transport, uslugi } = useSelector(
     (state: RootState) => state.form
   );
 
   const [api, contextHolder] = notification.useNotification();
 
+  //Параметры для уведомления
   const openNotification = (success: "success" | "error", message: string, description = "") => {
     api[success]({
       message,
@@ -58,38 +62,20 @@ export const useFormLogic = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       ...general, ...transport, ...nedvizhimost, ...uslugi
-      // ...Object.fromEntries(
-      //   Object.entries({ ...general, ...transport, ...nedvizhimost, ...uslugi, type: "" }).map(
-      //     ([key, value]) => [key, value ?? ""]
-      //   )
-      // ),
     },
   });
 
   const values: Partial<FormType> = watch();
-  const type = watch("type", "Недвижимость");
+  const type = watch("type");
   const throttlingRef = useRef<NodeJS.Timeout | null>(null);
 
   const previousValues = useRef<Partial<FormType>>({});
 
+  //Используется store для хранения значений между перезагрузками страницы
   useEffect(() => {
     if (values && !throttlingRef.current) {
       throttlingRef.current = setTimeout(() => {
         let flag = false;
-        // Object.keys(values).forEach((key) => {
-        //   const typedKey = key as keyof FormType;
-        //   if (values[typedKey] !== previousValues.current[typedKey]) {
-        //     if (key in general) 
-        //       dispatch(setGeneralInfo({ [typedKey]: values[typedKey] }));
-        //     if (key in nedvizhimost) 
-        //       dispatch(setNedvizhimostInfo({ [typedKey]: values[typedKey] }));             
-        //     if (key in transport)
-        //       dispatch(setTransportInfo({ [typedKey]: values[typedKey] }));
-        //     if (key in uslugi)
-        //       dispatch(setUslugiInfo({ [typedKey]: values[typedKey] }));
-        //     flag = true;
-        //   }
-        // });
         Object.keys(values).forEach((key) => {
           const typedKey = key as keyof FormType;
           if (values[typedKey] !== previousValues.current[typedKey]) {
@@ -109,30 +95,7 @@ export const useFormLogic = () => {
         throttlingRef.current = null;
       }, 500);
     }
-  }, [values, general, nedvizhimost, transport, uslugi, dispatch]);
-
-  const onSubmit = handleSubmit(async () => {
-    let body = null;
-    if (type === AdTypes.Nedvizhimost) {
-      body = {...general, ...nedvizhimost};
-    } else if (type === AdTypes.Transport) {
-      body = {...general, ...transport}
-    } else if (type === AdTypes.Uslugi) {
-      body = {...general, ...uslugi}
-    } 
-    console.log(body);
-    if (body) {
-      try {
-        const response = await createAd(body).unwrap();
-        if (response) {
-          openNotification("success", "Объявление успешно создано");
-        }
-      } catch (error) {
-        console.error("Ошибка при создании объявления:", error);
-        openNotification("error", "Произошла ошибка при создании объявления", "Статус ошибки " + error?.status);
-      }
-    }
-  });
+  }, [values, general, nedvizhimost, transport, uslugi, dispatch]); 
 
   const resetForm = () => {
     dispatch(resetFormAction());
@@ -144,6 +107,48 @@ export const useFormLogic = () => {
       type: ""
     });
   }
+
+  //отправка данных на сервер
+  const onSubmit = handleSubmit(async () => {
+    let body = null;
+    if (type === AdTypes.Nedvizhimost) {
+      body = {...general, ...nedvizhimost};
+    } else if (type === AdTypes.Transport) {
+      body = {...general, ...transport}
+    } else if (type === AdTypes.Uslugi) {
+      body = {...general, ...uslugi}
+    } 
+
+    // if (body) {
+    //   try {
+    //     const response = await createAd(body).unwrap();
+    //     if (response) {
+    //       openNotification("success", "Объявление успешно создано");
+    //       resetForm();
+    //     }
+    //   } catch (error) {
+    //     console.error("Ошибка при создании объявления:", error);
+    //     openNotification("error", "Произошла ошибка при создании объявления", "Статус ошибки " + error?.status);
+    //   }
+    // }
+    try {
+      if (body) {
+        if (id && id >= 0) {
+          await updateAd({ id, body }).unwrap();
+          openNotification("success", "Объявление успешно обновлено");
+          resetForm();
+          navigate('/form');
+        } else {
+          await createAd(body).unwrap();
+          openNotification("success", "Объявление успешно создано");
+          resetForm();
+        }
+      }
+    } catch (error) {
+      console.error("Ошибка при создании/обновлении объявления:", error);
+      openNotification("error",  "Произошла ошибка при создании/обновлении объявления", "Статус ошибки " + error?.status);
+    }
+  });
 
   return {
     register,

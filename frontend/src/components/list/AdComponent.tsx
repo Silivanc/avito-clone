@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { Ad, AdTypes } from "../../types/ad.types";
-import { ImageComponent } from "../../ui/Image";
-import { Link, useNavigate } from "react-router-dom";
+import { Ad } from "../../types/ad.types";
+import { useNavigate } from "react-router-dom";
 import { Image } from "antd";
 import defaultImage from "../../assets/defaulImage.png"; 
 import { Button } from "../../ui/Button";
@@ -23,7 +22,7 @@ export const AdComponent: FC<AdComponentType> = ({ ad }) => {
           <Image
             width={224}
             height={208}
-            src={image}
+            src={image || undefined}
             alt={name}
             fallback={defaultImage}
             preview={false}
@@ -44,7 +43,7 @@ export const AdComponent: FC<AdComponentType> = ({ ad }) => {
         </div>
 
         <div className="relative w-full">
-          <h2 className="text-blue-600 font-semibold text-2xl hover:text-red-600">{name}</h2>
+          <h2 className="text-blue-600 font-semibold text-2xl hover:text-red-600 line-clamp-1">{name}</h2>
 
           <p className="font-bold text-gray-900 text-lg">{type}</p>
 

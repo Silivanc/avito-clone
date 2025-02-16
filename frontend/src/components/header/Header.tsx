@@ -1,9 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button";
 import { PATHS } from "../../constants/constants";
+import { useFormLogic } from "../form/index";
 
 export const Header = () => {
   const navigate = useNavigate();
+
+  const {resetForm} = useFormLogic();
 
   return (
     <header className="top-0 bg-white w-full h-16 flex justify-between items-center px-5 shadow-sm z-10">
@@ -30,7 +33,10 @@ export const Header = () => {
       
       <Button
         text="Разместить объявление"
-        fn={() => navigate(PATHS.form)}
+        fn={() => {
+          resetForm();
+          navigate(PATHS.form, )
+        }}
         styles="bg-cyan-500 h-10 text-white hover:bg-cyan-600"
       ></Button>
     </header>

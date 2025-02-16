@@ -13,10 +13,9 @@ export const usePaginator = (pageSize: number = 5) => {
         (ad) =>
           ad.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
           (selectedType ? ad.type === selectedType : true)
-      )
+      ).reverse()
     : [];
 
-      console.log(1, selectedType)
   const currentData = filteredData.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize

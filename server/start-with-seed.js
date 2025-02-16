@@ -6,7 +6,6 @@ const server = exec("node app.js", (error, stdout, stderr) => {
   console.log(stdout);
 });
 
-// Ждём 2 секунды, чтобы сервер поднялся, затем запускаем сиды
 setTimeout(() => {
   console.log("Seeding database...");
   exec("node seed.js", (error, stdout, stderr) => {

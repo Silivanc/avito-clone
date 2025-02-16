@@ -12,6 +12,12 @@ export const adsApi = createApi({
       }),
       providesTags: ["Ads"],
     }),
+    getAd: builder.query<Ad, Pick<Ad, "id">>({
+      query: ({id}) => ({
+        url: `items/${id}`,
+      }),
+      providesTags: (result, error, { id }) => [{ type: "Ads", id }],
+    }),
     createAd: builder.mutation<Ads, Omit<Ad, "id">>({
       query: (body) => ({
         url: "items",
@@ -20,7 +26,28 @@ export const adsApi = createApi({
       }),
       invalidatesTags: ["Ads"],
     }),
+    updateAd: builder.mutation<Ad, {id: number, body: Omit<Ad, "id">}>({
+      query: ({id, body}) => ({
+        url: `items/${id}`,
+        method: "PUT",
+        body: body,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: "Ads", id }],
+    }),
+    deleteAd: builder.mutation<void, Pick<Ad, "id">>({
+      query: ({ id }) => ({
+        url: `items/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Ads"],
+    }),
   }),
 });
 
-export const { useCreateAdMutation, useGetAdsQuery } = adsApi;
+export const {
+  useGetAdsQuery,
+  useGetAdQuery,
+  useCreateAdMutation,
+  useUpdateAdMutation,
+  useDeleteAdMutation,
+} = adsApi;
