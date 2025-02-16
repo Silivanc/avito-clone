@@ -1,13 +1,23 @@
-import { Route, Routes } from "react-router-dom"
-import { FormPage } from "./pages/FormPage"
+import { Route, Routes } from "react-router-dom";
+import { FormPage } from "./pages/FormPage";
+import { HomePage } from "./pages/HomePage";
+import { Header } from "./components/header/Header";
+import { PATHS } from "./constants/constants";
+import { ListPage } from "./pages/ListPage";
+import { ItemPage } from "./pages/AdPage";
 
 function App() {
-
   return (
-    <Routes>
-      <Route path="/form" element={<FormPage/>}/>
-    </Routes>
-  )
+    <>
+      <Header></Header>
+      <Routes>
+        <Route path={PATHS.home} element={<HomePage />} />
+        <Route path={PATHS.form} element={<FormPage />} />
+        <Route path={PATHS.list} element={<ListPage />} />
+        <Route path={PATHS.item} element={<ItemPage />} />
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;

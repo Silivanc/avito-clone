@@ -1,3 +1,4 @@
+// styles.module.scss
 :root {
     --background-input: rgb(241, 241, 241);
     --background-input-hover: rgb(228, 227, 227);
@@ -7,7 +8,7 @@
     --border-error-input: rgba(221, 64, 64, 0.81);
 }
 
-input, textarea, select {
+.input, .textarea, .select {
     width: 100%;
     padding: 13px;
     background: var(--background-input);
@@ -24,15 +25,28 @@ input, textarea, select {
     }
 }
 
-input {
+.formPage {
+    span {
+        color: var(--color-span);
+        margin-bottom: 20px;
+        font-size: 15px;
+        font-weight: 300
+    }
+}
+
+
+.input {
     height: 50px;
 }
 
-span {
-    color: var(--color-span);
-    margin-bottom: 20px;
-    font-size: 15px;
-    font-weight: 300
+.textarea {
+    height: 150px;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 7px;
 }
 
 .error {
@@ -45,14 +59,4 @@ span {
     &:focus {
         outline: 3px solid var(--border-error-input);
     }
-}
-
-textarea {
-    height: 150px;
-}
-
-label {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 7px;
 }

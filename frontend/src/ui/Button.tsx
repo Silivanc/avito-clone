@@ -11,6 +11,6 @@ interface ButtonProps {
 
 export const Button: FC<ButtonProps> = ({text, fn, styles, type='button'}) => {
     return (
-        <button className={clsx("w-52 h-14 rounded-2xl cursor-pointer", styles)} type={type} onClick={() => {fn()}}>{text}</button>
+        <button className={clsx("px-3 rounded-2xl cursor-pointer", styles)} type={type} onClick={() => {fn()}}>{text}</button>
     )
 }

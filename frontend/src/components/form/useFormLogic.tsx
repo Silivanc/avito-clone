@@ -17,8 +17,7 @@ import {
   IUslugi,
 } from "../../types/ad.types";
 import { useCreateAdMutation } from "../../api/adsApi";
-import Notification from "../../ui/Notification";
-
+import { notification } from "antd";
 type FormType = Partial<
   Omit<INedvizhimost, "type"> &
     Omit<ITransport, "type"> &
@@ -33,16 +32,21 @@ const numberRules: RegisterOptions = {
 };
 
 export const useFormLogic = () => {
-  const [notification, setNotification] = useState<{ message: string; success: boolean } | null>(null);
-  const closeNotification = () => {
-    setNotification(null);
-  };
-
   const dispatch = useDispatch();
   const [createAd, {isLoading, isError, isSuccess}] = useCreateAdMutation();
   const { general, nedvizhimost, transport, uslugi } = useSelector(
     (state: RootState) => state.form
   );
+
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (success: "success" | "error", message: string, description = "") => {
+    api[success]({
+      message,
+      description,
+      closeIcon: true,
+    });
+  };
 
   const {
     register,
@@ -121,17 +125,11 @@ export const useFormLogic = () => {
       try {
         const response = await createAd(body).unwrap();
         if (response) {
-          setNotification({
-            message: "Объявление успешно создано",
-            success: true,
-          });
+          openNotification("success", "Объявление успешно создано");
         }
       } catch (error) {
         console.error("Ошибка при создании объявления:", error);
-        setNotification({
-          message: "Произошла ошибка при создании объявления",
-          success: false,
-        });
+        openNotification("error", "Произошла ошибка при создании объявления", "Статус ошибки " + error?.status);
       }
     }
   });
@@ -156,12 +154,6 @@ export const useFormLogic = () => {
     numberRules,
     onSubmit,
     resetForm,
-    notification: notification ? (
-      <Notification
-        message={notification.message}
-        success={notification.success}
-        onClose={closeNotification}
-      />
-    ) : null,
+    contextHolder,
   };
 };

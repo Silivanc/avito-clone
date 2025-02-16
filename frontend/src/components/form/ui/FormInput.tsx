@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "../form.module.scss";
 import { FormInputType } from "../form.type";
 
@@ -19,7 +20,7 @@ export function FormInput({
         {labelName}
       </label>
       <input
-        className={errors[identificator] && styles.errorInput}
+        className={clsx(styles.input, errors[identificator] && styles.errorInput)}
         {...register(identificator, { required, ...optionalRules })}
         id={identificator}
         onChange={(e) => {
@@ -34,7 +35,13 @@ export function FormInput({
               if (value.startsWith(",")) {
                 value = "";
               }
+
               const parts = value.split(",");
+              if (parts.length > 2) {
+                value =
+                  parts[0] + "," + parts.slice(1).join("").replace(/,/g, "");
+              }
+
               if (parts.length > 1 && parts[1].length > 2) {
                 value = parts[0] + "," + parts[1].slice(0, 2);
               }
@@ -54,9 +61,11 @@ export function FormInput({
 
               if (/^0,[0]*$/.test(value)) {
                 value = "0";
+              } else if (/^0+,/.test(value)) {
+                value = value.replace(/^0+/, "0"); 
               }
             }
-        
+
             setValue(identificator, value, { shouldValidate: true });
           }
         }}

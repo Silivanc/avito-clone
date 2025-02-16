@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "../form.module.scss";
 import { FormInputType } from "../form.type";
 
@@ -16,7 +17,7 @@ export function FormTextarea({
         {labelName}
       </label>
       <textarea
-        className={errors[identificator] && styles.errorInput}
+        className={clsx(styles.textarea, errors[identificator] && styles.errorInput)}
         {...register(identificator, { required })}
         id={identificator}
       />

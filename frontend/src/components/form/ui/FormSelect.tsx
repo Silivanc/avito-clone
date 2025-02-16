@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "../form.module.scss";
 import { FormSelectType } from "../form.type";
 
@@ -21,7 +22,7 @@ export function FormSelect({
 
       {component === "select" ? (
         <select
-          className={errors[identificator] && styles.errorInput}
+          className={clsx(styles.select, errors[identificator] && styles.errorInput)}
           {...register(identificator, {
             required: required,
             ...optionalRules,

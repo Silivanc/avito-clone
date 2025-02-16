@@ -1,22 +1,15 @@
-import { FormInput } from "../components/form/ui/FormInput";
-import { FormTextarea } from "../components/form/ui/FormTextarea";
-import { FormSelect } from "../components/form/ui/FormSelect";
-import { useFormLogic } from "../components/form/useFormLogic";
-import { AdTypes } from "../types/ad.types";
-import {
-  generalFields,
-  nedvizhimostFields,
-  transportFields,
-  UslugiFields,
-} from "../components/form/formFields";
 import { Button } from "../ui/Button";
+import styles from"../components/form/form.module.scss"
+import {FormInput, FormTextarea, FormSelect, useFormLogic, AdTypes, generalFields, nedvizhimostFields, transportFields, UslugiFields} from "../components/form/index"
+import { FC } from "react";
+import clsx from "clsx";
 
 export const FormPage = () => {
-  const { register, setValue, errors, type, onSubmit, resetForm, notification } =
+  const { register, setValue, errors, type, onSubmit, resetForm, contextHolder } =
     useFormLogic(); 
 
   return (
-    <div className="container x-auto px-36 py-14">
+    <div className={clsx("container x-auto px-36 py-28", styles.formPage)}>
       <form
         onSubmit={onSubmit}
         className="max-w-2xl flex flex-col"
@@ -150,10 +143,11 @@ export const FormPage = () => {
               />
             );
           })}
-
-        <Button text="Нажми на меня" fn={()=>{}} type="submit" styles="bg-black text-white"/>
-        <Button text="Сбросить" fn={resetForm} styles="bg-[#f1f1f1]"/>
-        {notification}
+        {contextHolder}
+        <div>
+        <Button text="Опубликовать" fn={()=>{}} type="submit" styles="w-52 h-14 bg-black text-white mr-4"/>
+        <Button text="Сбросить" fn={resetForm} styles="w-52 h-14 bg-[#f1f1f1]"/>
+        </div>
       </form>
     </div>
   );
